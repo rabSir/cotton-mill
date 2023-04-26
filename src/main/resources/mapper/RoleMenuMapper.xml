@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctmill.mapper.RoleMenuMapper">
+    <select id="getMenuIdListByRoleId" parameterType="Integer" resultType="Integer">
+        SELECT
+            rm.`menu_id`
+        FROM cotton_mill_role_menu rm, cotton_mill_menu m
+        WHERE rm.`menu_id` = m.`menu_id`
+        AND m.`is_leaf` = 'Y'
+        AND rm.`role_id` = #{id}
+    </select>
+</mapper>

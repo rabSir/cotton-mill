@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctmill.mapper.MenuMapper">
+    <select id="getMenuListByUserId" resultType="Menu">
+        SELECT
+            distinct cm.*
+        FROM cotton_mill_menu cm,
+             cotton_mill_role_menu crm,
+             cotton_mill_user_role cur
+        WHERE cm.`menu_id` = crm.`menu_id`
+          AND crm.`role_id` = cur.`role_id`
+          AND cur.`user_id` = #{userId}
+          AND cm.`parent_id` = #{pid}
+    </select>
+</mapper>
