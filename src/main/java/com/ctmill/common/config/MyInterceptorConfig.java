@@ -25,6 +25,7 @@ public class MyInterceptorConfig implements WebMvcConfigurer {
         registration.addPathPatterns("/**")
                 //排除拦截地址
                 .excludePathPatterns(
+                        "/test/*",
                         "/user/login",
                         "/user/info",
                         "/user/logout",

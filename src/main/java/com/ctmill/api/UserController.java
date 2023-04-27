@@ -1,5 +1,6 @@
 package com.ctmill.api;
 
+import com.ctmill.common.exception.AppExceptionEnum;
 import com.ctmill.common.vo.ResponseResult;
 import com.ctmill.pojo.entity.User;
 import com.ctmill.service.IUserService;
@@ -38,7 +39,7 @@ public class UserController {
             //登录成功
             return ResponseResult.success("登录成功",data);
         }
-        return ResponseResult.error("登录失败");
+        return ResponseResult.error(AppExceptionEnum.BODY_NOT_MATCH);
     }
 
     /**
@@ -111,7 +112,7 @@ public class UserController {
         if (data!=null){
             return ResponseResult.success("登录成功",data);
         }
-        return ResponseResult.error("登录信息无效,请重新登录");
+        return ResponseResult.error(AppExceptionEnum.TOKEN_EXPIRED);
     }
     /**
      * TODO 传参优化vo类接收

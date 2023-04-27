@@ -1,6 +1,7 @@
 package com.ctmill.interceptor;
 
 import com.alibaba.fastjson2.JSON;
+import com.ctmill.common.exception.AppExceptionEnum;
 import com.ctmill.common.utils.JwtUtil;
 import com.ctmill.common.vo.ResponseResult;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +11,6 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.lang.ref.ReferenceQueue;
 
 /**
  * @Description Jwt验证拦截器
@@ -36,7 +36,7 @@ public class JwtValidateInterceptor implements HandlerInterceptor {
         }
         log.debug(request.getRequestURI()+"验证失败,禁止访问");
         response.setContentType("application/json;charset=utf-8");
-        ResponseResult<String> result = ResponseResult.error(20001, null, "无效请重新登录");
+        ResponseResult<String> result = ResponseResult.error(AppExceptionEnum.ILLEGAL_TOKEN);
         response.getWriter().write(JSON.toJSONString(result));
         return false;
     }

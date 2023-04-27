@@ -1,5 +1,7 @@
 package com.ctmill.common.vo;
 
+import com.ctmill.common.exception.AppExceptionEnum;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +20,7 @@ public class ResponseResult<T> {
     //返回消息
     private String message;
     //返回参数
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private T data;
 
     /**
@@ -26,7 +29,7 @@ public class ResponseResult<T> {
      * @return
      */
     public static<T> ResponseResult<T> success(String message){
-        return new ResponseResult<>(20000,message,null);
+        return new ResponseResult<>(200,message,null);
     }
 
     /**
@@ -36,26 +39,26 @@ public class ResponseResult<T> {
      * @return
      */
     public static<T> ResponseResult<T> success(String message, T data){
-        return new ResponseResult<>(20000,message,data);
+        return new ResponseResult<>(200,message,data);
+    }
+
+    /**
+     * 自定义全局异常，无数据返回
+     * @param appExceptionEnum
+     * @return
+     */
+    public static<T> ResponseResult<T> error(AppExceptionEnum appExceptionEnum){
+        return new ResponseResult<>(appExceptionEnum.getCode(), appExceptionEnum.getMsg(),null);
     }
 
     /**
      * 失败返回结果信息，无数据信息
+     * @param code
      * @param message
      * @return
      */
-    public static<T> ResponseResult<T> error(String message){
-        return new ResponseResult<>(50000,message,null);
-    }
-
-    /**
-     * 失败返回结果信息，有数据信息
-     * @param message
-     * @param data
-     * @return
-     */
-    public static<T> ResponseResult<T> error(String message,T data){
-        return new ResponseResult<>(50000,message,data);
+    public static<T> ResponseResult<T> error(Integer code,String message){
+        return new ResponseResult<>(code,message,null);
     }
 
     /**
